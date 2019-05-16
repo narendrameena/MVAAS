@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """
-vcf.py
-Narendra Meena
-May 16, 2019
+GTF.py
+Kamil Slowikowski
+December 24, 2013
 
-Read VCF files. Works with gzip compressed files and pandas.
+Read GFF/GTF files. Works with gzip compressed files and pandas.
 
-    http://www.internationalgenome.org/wiki/Analysis/vcf4.0/
+    http://useast.ensembl.org/info/website/upload/gff.html
 
 LICENSE
 
@@ -41,15 +41,16 @@ import gzip
 import pandas as pd
 import re
 
-FASTA_HEADER = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO']
+
+GTF_HEADER = ['seqname', 'source', 'feature', 'start', 'end', 'score',
+              'strand', 'frame']
 R_SEMICOLON = re.compile(r'\s*;\s*')
 R_COMMA = re.compile(r'\s*,\s*')
 R_KEYVALUE = re.compile(r'(\s+|\s*=\s*)')
 
 
 def dataframe(filename):
-    """
-    Open an optionally gzipped fasta file and return a pandas.DataFrame.
+    """Open an optionally gzipped BED file and return a pandas.DataFrame.
     """
     # Each column is a list stored as a value in this dict.
     result = defaultdict(list)
@@ -69,8 +70,7 @@ def dataframe(filename):
 
 
 def lines(filename):
-    """
-    Open an optionally gzipped VCF file and generate a dict for each line.
+    """Open an optionally gzipped GTF file and generate a dict for each line.
     """
     fn_open = gzip.open if filename.endswith('.gz') else open
 
@@ -83,13 +83,13 @@ def lines(filename):
 
 
 def parse(line):
-    """Parse a single VCF line and return a dict.
+    """Parse a single GTF line and return a dict.
     """
     result = {}
 
     fields = line.rstrip().split('\t')
 
-    for i, col in enumerate(VCF_HEADER):
+    for i, col in enumerate(GTF_HEADER):
         result[col] = _get_value(fields[i])
 
     # INFO field consists of "key1=value;key2=value;...".

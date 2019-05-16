@@ -2,7 +2,7 @@
 """
 bed.py
 Narendra Meena
-December 24, 2013
+May 16, 2019
 
 Read BED files. Works with gzip compressed files and pandas.
 
@@ -72,7 +72,7 @@ def dataframe(filename):
 
 def lines(filename):
     """
-    Open an optionally gzipped GTF file and generate a dict for each line.
+    Open an optionally gzipped BED file and generate a dict for each line.
     """
     fn_open = gzip.open if filename.endswith('.gz') else open
 
@@ -85,13 +85,13 @@ def lines(filename):
 
 
 def parse(line):
-    """Parse a single GTF line and return a dict.
+    """Parse a single BED line and return a dict.
     """
     result = {}
 
     fields = line.rstrip().split('\t')
 
-    for i, col in enumerate(GTF_HEADER):
+    for i, col in enumerate(BED_HEADER):
         result[col] = _get_value(fields[i])
 
     return result
