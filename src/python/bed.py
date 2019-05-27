@@ -51,7 +51,7 @@ R_KEYVALUE = re.compile(r'(\s+|\s*=\s*)')
 
 def dataframe(filename):
     """
-    Open an optionally gzipped BED file and return a pandas.DataFrame.
+    Open an optionally gziped BED file and return a pandas.DataFrame.
     """
     # Each column is a list stored as a value in this dict.
     result = defaultdict(list)

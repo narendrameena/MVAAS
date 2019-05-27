@@ -41,7 +41,7 @@ import gzip
 import pandas as pd
 import re
 
-FASTA_HEADER = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO']
+VCF_HEADER = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO']
 R_SEMICOLON = re.compile(r'\s*;\s*')
 R_COMMA = re.compile(r'\s*,\s*')
 R_KEYVALUE = re.compile(r'(\s+|\s*=\s*)')
